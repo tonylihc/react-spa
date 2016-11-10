@@ -4,6 +4,17 @@
   /* if you want to use babel runtime, uncomment the following line */
   // "plugins": ["transform-runtime"],
 
+
+  "plugins": [["import", [
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "lib",   // default: lib
+        "style": true
+      }
+    ]
+  ]],
+
+
   "env": {
     "build": {
       "optional": ["optimisation", "minification"]

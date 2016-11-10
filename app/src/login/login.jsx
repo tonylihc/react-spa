@@ -1,6 +1,6 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
-import { Form, Input, Button, notification } from 'antd'
+import { Form, Input, Button, notification, Icon, Checkbox } from 'antd'
 
 import './login.less'
 import 'antd/dist/antd.css'
@@ -19,8 +19,6 @@ class LoginPage extends React.Component {
         // 这里的获取值 值得 思考
         let n = this.props.form.getFieldsValue().username;
         let p = this.props.form.getFieldsValue().password;
-        console.log(`the value n is ${n}`);
-        console.log(p)
         if(n === 'reactIsGood' && p === 'reactIsGood'){
             // 表单的路由处理
             let ss = window.sessionStorage;
@@ -35,30 +33,50 @@ class LoginPage extends React.Component {
     openNotificationWithIcon = (type) => {
         return notification[type]({
             message: '用户名&密码',
-            description: '都是 TonyLi',
+            description: '都是 reactIsGood',
             duration: 6,
         })
     }
 
     componentDidMount() {
-        this.openNotificationWithIcon('info')
+        // this.openNotificationWithIcon('info')
     }
 
     render() {
-        const {getFieldProps} = this.props.form; //
-        console.log('the username is' + {...getFieldProps('username')});
+        const {getFieldDecorator} = this.props.form; //
         return (
             <div id="loginpagewrap">
                 <p>Sign in to SPA!</p>
                 <div id="loginwrap">
                     <Form horizontal onSubmit={this.handleSubmit}>
                         <FormItem>
-                            <Input placeholder="username" {...getFieldProps('username')} />
+                            {getFieldDecorator('username', {
+                                rules:[{required: true, message: "Please input your username!"}],
+                            })(
+                                <Input addonBefore={<Icon type="user" />} placeholder="username"/>
+                            )}
                         </FormItem>
                         <FormItem>
-                            <Input placeholder="Password" type="password" {...getFieldProps('password')} />
+                            {getFieldDecorator('password', {
+                                rules:[{required: true, message: "Please input your Password!"}],
+                            })(
+                                <Input addonBefore={<Icon type="lock" />} placeholder="Password" type="password"/>
+                            )}
                         </FormItem>
-                        <Button type="primary" htmlType="submit" id="loginBtn">Login</Button>
+                        {/*<Button type="primary" htmlType="submit" id="loginBtn">Login</Button>*/}
+                        <FormItem>
+                            {getFieldDecorator('remember', {
+                                valuePropName: 'checked',
+                                initialValue: true,
+                            })(
+                                <Checkbox>Remember me</Checkbox>
+                            )}
+                            <a className="login-form-forgot">Forgot password</a>
+                            <Button type="primary" htmlType="submit" id="loginBtn" className="login-form-button">
+                                Log in
+                            </Button>
+                            Or <a>register now!</a>
+                        </FormItem>
                     </Form>
             </div>
             </div>
