@@ -77,7 +77,11 @@ class AformInModal extends React.Component {
                             )}
                         </FormItem>
                         <FormItem>
-
+                            {getFieldDecorator('line',{
+                                rules: [{ required: true, message: 'Please input your line!' }],
+                            })(
+                                <Switch checkedChildren="开" uncheckedChildren="关" />
+                            )}
                         </FormItem>
                     </Form>
                 </Modal>
