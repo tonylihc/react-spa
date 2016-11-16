@@ -6,8 +6,12 @@ import { Router, Route, browserHistory, IndexRoute, Redirect } from 'react-route
 import Init from './main.jsx'
 import Welcome from './welcome/welcome.jsx'
 import Profile from './profile/profile.jsx'
-import Login from './login/login.jsx'
+import Campaign from './campaign/campaign.jsx'
+
 import Last from './last/last.jsx'
+import NotFoundPage from './nofine/nofind.jsx'
+import Login from './login/login.jsx'
+
 
 
 const isLogin = (nextState, replace) => {
@@ -29,7 +33,11 @@ render(
         <Route path="/" component={Init} onEnter={isLogin} >{/* 这里用了登录钩子 */}
             <IndexRoute component={Welcome}/>
             <Route path="profile" component={Profile} />
+            <Route path="campaign" component={Campaign} />
             <Route path="last" component={Last} />
+
+            <Route path="/404" component={NotFoundPage} />
+
         </Route>
     </Router>
     , document.getElementById('init')
